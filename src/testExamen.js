@@ -126,9 +126,9 @@ let testExamen = (jsonExamen, user) =>{
                     while(questionMatching < 0 || questionMatching >= lstQuestions.length){
                         questionMatching = prompt("veuillez entrer l'index de votre question de gauche : ");
                     }
-                    let reponseMatching = prompt("veuilleez entrer l'index de votre question de droite : ");
+                    let reponseMatching = prompt("veuillez entrer l'index de votre question de droite : ");
                     while(reponseMatching < 0 || reponseMatching >= lstReponses.length){
-                        reponseMatching = prompt("veuilleez entrer l'index de votre question de droite : ");
+                        reponseMatching = prompt("veuillez entrer l'index de votre question de droite : ");
                     }
                     // ajout de la question et de la réponse dans le dictionnaire
                     dictionnaireQuestionReponse[lstQuestions[questionMatching]] = lstReponses[reponseMatching];
