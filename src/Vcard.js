@@ -82,7 +82,7 @@ function createVCard() {
 
         // Écrire la vCard dans un fichier
         fs.writeFileSync(filePath, vCard());
-        console.log('Le fichier à bien été créer dans le dossier contact.'.green);
+        console.log('Le fichier a bien été créé dans le dossier contact.'.green);
     }
     else {
         console.log('Veuillez entrer O ou N : '.red);
