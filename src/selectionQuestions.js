@@ -101,7 +101,7 @@ function affichageDossier() {
 function choixFichier(files) {
     let index = prompt("Numero du fichier à consulter ou (exit) pour revenir en arrière: ");
     if (index === "exit" || index === "EXIT" || index === "Exit") {
-        console.log("Vous etes sortis de la fonction");
+        console.log("Vous êtes sortis de la fonction");
         fileGestion();
     } else {
         let i = parseInt(index);
@@ -118,7 +118,7 @@ function choixFichier(files) {
                     case "1":
                         return choixFichier(files);
                     case "2":
-                        console.log("Vous etes sortis de la fonction");
+                        console.log("Vous êtes sortis de la fonction");
                         fileGestion();
                         break;
                     default:
@@ -189,7 +189,7 @@ let supprimerQuestion = () => {
         index = prompt("Numéro de la question à supprimer (exit) pour revenir en arrière : ");
     }
     if (index === "exit" || index === "EXIT" || index === "Exit") {
-        console.log("Vous etes sortis de la fonction");
+        console.log("Vous êtes sortis de la fonction");
         return;
     } else {
         index = parseInt(index);
