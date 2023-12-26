@@ -304,6 +304,25 @@ let genererExamen = async () => {
         }
     });
 
+    if (questions.length === 0) {
+        console.log("Aucune question n'a été ajoutée pour générer le graphe.".red);
+        return;
+    }else{
+
+
+    let typesDeQuestionsDifferents = new Set();
+    questions.forEach(question => {
+        typesDeQuestionsDifferents.add(question.type);
+    });
+
+    if (typesDeQuestionsDifferents.size === 1) {
+        console.log("Il n'y a qu'un seul type de question dans le test. L'histogramme ne sera pas généré.".yellow);
+        console.log(`Le type unique de question est `,questions.type);
+        console.log(`Il y en a `,questions.length);
+        return;
+    }else{
+
+
     //generer le graphique
     var avgChart = {
         "width": 320,
@@ -351,7 +370,7 @@ let genererExamen = async () => {
         console.log("Chart output : ../charts/" + fileNameGift + ".svg");
     } catch (err) {
         console.error(("Error generating chart: ", err).red);
-    }
+    }}};
 
 }
 
