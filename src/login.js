@@ -46,11 +46,16 @@ let login = () => {
 let register = () => {
     console.log("Register : ");
     let username = prompt("Username : ");
-    let password = prompt("Password : ");
-    while (password.length < 8) {
-        console.log("Password too short");
-        password = prompt("Password(min: 8 char) : ");
+    let password = prompt("Password (min: 8 char, uppercase, lowercase, number, special char): ");
+    const regexUpperCase = /[A-Z]/;
+    const regexLowerCase = /[a-z]/;
+    const regexNumber = /[0-9]/;
+    const regexSpecialChar = /[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/;
+    while (password.length < 8 || !regexUpperCase.test(password) || !regexLowerCase.test(password) || !regexNumber.test(password) || !regexSpecialChar.test(password) {
+        console.log("Password doesn't meet the requirements");
+        password = prompt("Password (min: 8 char, uppercase, lowercase, number, special char): ");
     }
+    console.log("Password is very secure!");
     let type = prompt("Type(etudiant|professeur) : ");
     while (type !== "etudiant" && type !== "professeur") {
         console.log("Wrong type");
