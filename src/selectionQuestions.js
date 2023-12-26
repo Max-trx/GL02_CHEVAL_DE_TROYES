@@ -331,16 +331,33 @@ let genererExamen = async () => {
             "values": nbQuestionType
         },
         "mark": "bar",
-        "title": "Examen : " + fileNameGift,
+        "title": "Répartition des types de questions de l'examen : " + fileNameGift,
         "encoding": {
             "x": {
                 "field": "name", "type": "nominal",
-                "axis": { "title": "Type of questions" }
+                "axis": { "title": "Types de questions" }
             },
             "y": {
                 "field": "nbQuestion", "type": "quantitative",
-                "axis": { "title": "Count" }
+                "axis": { "title": "Nombre de questions" }
+            },
+            "color": {
+                "field": "name",
+                "type": "nominal",
+                "scale": {
+                    "range": ["#1f77b4", "#ff7f0e", "#2ca02c", "#d62728"]
+                }
             }
+        },
+        "legend": {
+            "title": "Légende",
+            "labelFontSize": 12,
+            "values": [
+            "MC: Choix Multiples",
+            "SHORT: Questions Courtes",
+            "TF: Question Vrai/Faux",
+            "NUM: Question à nombre"
+        ]
         }
     }
 
