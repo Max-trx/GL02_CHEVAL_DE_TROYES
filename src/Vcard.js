@@ -11,7 +11,7 @@ function createVCard() {
         lastName: "",
         email: "",
         cellPhone: "",
-        title: "",
+        title: [],
     };
     //Définir la fonction qui crée la vCard
     function vCard() {
@@ -44,17 +44,30 @@ function createVCard() {
     while (!/^[0-9]{10}$/.test(myvCard.cellPhone)) {
         myvCard.cellPhone = prompt('Veuillez entrer un numéro de téléphone valide. '.red);
     }
-    myvCard.title = prompt('Matière enseignée : ');
-    while (!/^[A-Za-zÀ-ÖØ-öø-ÿ-]+$/.test(myvCard.title)) {
-        myvCard.title = "Professeur : " + prompt('Veuillez entrer un rôle valide. Seules les lettres sont acceptées. '.red);
+    myvCard.title.push(prompt('Première matière enseignée : '));
+    while (!/^[A-Za-zÀ-ÖØ-öø-ÿ-]+$/.test(myvCard.title[0])) {
+        myvCard.title[0] = prompt('Veuillez entrer un nom valide. Seules les lettres sont acceptées. '.red);
     }
+    let temp = 0, index=1;
+    while (temp == 0){
+        temp = prompt("Enseigne-t-il d'autres matières ? (0-Oui / 1-Non)");
+        if (temp == 0){
+            myvCard.title[index] = prompt ('Autre matière enseignées :');
+            while (!/^[A-Za-zÀ-ÖØ-öø-ÿ-]+$/.test(myvCard.title[index])) {
+                myvCard.title[index] = prompt('Veuillez entrer un nom valide. Seules les lettres sont acceptées. '.red);
+            }
+            index = index+1;   
+        }
+    }
+
 
     //Vérifier que les informations sont correctes
     console.log('Prénom : '.green + myvCard.firstName.blue);
     console.log('Nom : '.green + myvCard.lastName.blue);
     console.log('Email : '.green + myvCard.email.blue);
     console.log('Numéro de téléphone : '.green + myvCard.cellPhone.blue);
-    console.log('Matière enseignée : '.green + myvCard.title.blue);
+    myvCard.title.forEach(function (item) {
+        console.log('Matière enseignée : '.green + item.blue);});
     let correct = prompt('Les informations sont-elles correctes ? (O/N) : ');
     
     // Demander si les informations sont correctes
@@ -65,7 +78,7 @@ function createVCard() {
             lastName: "",
             email: "",
             cellPhone: "",
-            title: "",
+            title: [],
         };
         createVCard();
     }
