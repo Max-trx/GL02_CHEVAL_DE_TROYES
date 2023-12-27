@@ -51,7 +51,7 @@ let register = () => {
     const regexLowerCase = /[a-z]/;
     const regexNumber = /[0-9]/;
     const regexSpecialChar = /[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/;
-    while (password.length < 8 || !regexUpperCase.test(password) || !regexLowerCase.test(password) || !regexNumber.test(password) || !regexSpecialChar.test(password) {
+    while (password.length < 8 || !regexUpperCase.test(password) || !regexLowerCase.test(password) || !regexNumber.test(password) || !regexSpecialChar.test(password) ){
         console.log("Password doesn't meet the requirements");
         password = prompt("Password (min: 8 char, uppercase, lowercase, number, special char): ");
     }

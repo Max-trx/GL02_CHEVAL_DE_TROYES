@@ -191,7 +191,15 @@ function readKeywords() {
       readKeywords();
     }
   } else {
-    keywords.push(userInput);
+    // Check if the keyword is already in the list
+    const keywordIndex = keywords.indexOf(userInput);
+    if (keywordIndex !== -1) {
+      // If the keyword is already in the list, remove it
+      keywords.splice(keywordIndex, 1);
+    } else {
+      // If the keyword is not in the list, add it
+      keywords.push(userInput);
+    }
     readKeywords();
   }
 }
