@@ -1,9 +1,7 @@
 const fs = require('fs');
-const accueil = require("./accueil.js");
 const login = require('./login.js');
 const prompt = require("prompt-sync")();
 const pathFile = ("../utils/users.json");
-const app = require("./app.js");
 const {updateUser} = require("./updateUser.js");
 const colors = require('colors');
 
@@ -55,14 +53,15 @@ let testExamen = (jsonExamen, user) =>{
 
     let score = 0;
     let nbQuestions = 0;
+    let exit = false
     //Parcourir le fichier JSON
     jsonExamen.forEach(question => {
-        if(question.result[0] === null){
+        if(question.result[0] === null || exit === true){
             return;
         }
         //Récupérer le type de la question
         const type = question.result[0][0]?.type;
-
+        if (type !== "Description") console.log('Pour interrompre la simulation tapez exit'.blue)
 
         //Vérifier le type de la question
         switch (type) {
@@ -74,9 +73,18 @@ let testExamen = (jsonExamen, user) =>{
                 nbQuestions++;
                 afficherReponses(question.result[0][0]?.choices);
                 let reponse = prompt("Votre réponse : ");
-
+                if (reponse==='exit'){
+                    console.log('Simulation interrompue'.blue);
+                    exit = true;
+                    return;
+                }
                 while(reponse==="" || reponse < 0 || reponse > question.result[0][0]?.choices.length|| isNaN(reponse)){
                     reponse = prompt("Votre réponse (veuillez choisir l'index !)  : ".red);
+                    if (reponse==='exit'){
+                        console.log('Simulation interrompue'.blue);
+                        exit = true;
+                        return
+                    }
                 }
                 if(question.result[0][0]?.choices[reponse-1].isCorrect){
                     score++;
@@ -89,8 +97,18 @@ let testExamen = (jsonExamen, user) =>{
                 console.log(question.result[0][0]?.stem.text);
                 nbQuestions++;
                 let reponseNumerical = prompt("Votre réponse : ");
-                while(reponseNumerical==="" || isNaN(reponseNumerical)){
+                if (reponseNumerical==='exit') {
+                    console.log('Simulation interrompue'.blue);
+                    exit = true;
+                    return;
+                }
+                while(reponseNumerical==="" || isNaN(reponseNumerical) || reponse !== 'exit'){
                     reponseNumerical = prompt("Votre réponse (un nombre !) : ".red);
+                    if (reponseNumerical==='exit') {
+                        console.log('Simulation interrompue'.blue);
+                        exit = true;
+                        return;
+                    }
                 }
                 if(verifierReponseNumerical(question.result[0][0]?.choices, reponseNumerical)){
                     score++;
@@ -103,8 +121,18 @@ let testExamen = (jsonExamen, user) =>{
                 console.log(question.result[0][0]?.stem.text);
                 nbQuestions++;
                 let reponseTF = prompt("Votre réponse (true/false) : ");
-                while(reponseTF.toLowerCase() !== "true" && reponseTF.toLowerCase() !== "false"){
+                if (reponseTF==='exit') {
+                    console.log('Simulation interrompue'.blue);
+                    exit = true;
+                    return;
+                }
+                while(reponseTF.toLowerCase() !== "true" && reponseTF.toLowerCase() !== "false" || reponse !== 'exit'){
                     reponseTF = prompt("Votre réponse (true/false) : ".red);
+                    if (reponseTF==='exit') {
+                        console.log('Simulation interrompue'.blue);
+                        exit = true;
+                        return;
+                    }
                 }
                 score+=verifierReponseTF(question.result[0][0], reponseTF);
                 break;
@@ -123,13 +151,34 @@ let testExamen = (jsonExamen, user) =>{
                     afficherMatchings(lstQuestions, lstReponses);
                     // récupération des index des questions et des réponses
                     let questionMatching = prompt("veuillez entrer l'index de votre question de gauche : ");
-                    while(questionMatching < 0 || questionMatching >= lstQuestions.length){
+                    if (questionMatching==='exit') {
+                        console.log('Simulation interrompue'.blue);
+                        exit = true;
+                        return;
+                    }
+                    while(questionMatching < 0 || questionMatching >= lstQuestions.length || reponse !== 'exit'){
                         questionMatching = prompt("veuillez entrer l'index de votre question de gauche : ");
+                        if (questionMatching==='exit') {
+                            console.log('Simulation interrompue'.blue);
+                            exit = true;
+                            return;
+                        }
                     }
                     let reponseMatching = prompt("veuillez entrer l'index de votre question de droite : ");
-                    while(reponseMatching < 0 || reponseMatching >= lstReponses.length){
-                        reponseMatching = prompt("veuillez entrer l'index de votre question de droite : ");
+                    if (reponseMatching==='exit') {
+                        console.log('Simulation interrompue'.blue);
+                        exit = true;
+                        return;
                     }
+                    while(reponseMatching < 0 || reponseMatching >= lstReponses.length || reponse !== 'exit'){
+                        reponseMatching = prompt("veuillez entrer l'index de votre question de droite : ");
+                        if (reponseMatching==='exit') {
+                            console.log('Simulation interrompue'.blue);
+                            exit = true;
+                            return
+                        }
+                    }
+
                     // ajout de la question et de la réponse dans le dictionnaire
                     dictionnaireQuestionReponse[lstQuestions[questionMatching]] = lstReponses[reponseMatching];
                     // suppression de la question et de la réponse dans les listes
@@ -146,12 +195,17 @@ let testExamen = (jsonExamen, user) =>{
                 while(reponseShort===""){
                     reponseShort = prompt("Votre réponse : ".red);
                 }
-                if(verifierReponseShort(question.result[0][0]?.choices, reponseShort)){score++;}
+                if (reponseShort==='exit') {
+                    console.log('Simulation interrompue'.blue);
+                    exit = true;
+                    return;
+                } else if(verifierReponseShort(question.result[0][0]?.choices, reponseShort)){score++;}
                 console.log(score);
 
                 break;
         }
     });
+    if (exit === true) return;
     if (nbQuestions === 0) {
         console.log("Aucune question n'a été trouvée dans ce fichier.".red);
         console.log("Il semble que le fichier ne soit pas au bon format.".red);
