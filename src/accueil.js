@@ -5,6 +5,7 @@ const selectQ = require("./selectionQuestions.js")
 const examen = require("./testExamen.js");
 const searchQ = require("./searchQuestions.js");
 const colors = require('colors');
+const graphique = require("./graphique.js");
 
 // Fonction qui affiche le menu d'accueil
 let accueil = async (user) => {
@@ -45,7 +46,8 @@ let accueil = async (user) => {
         console.log("2. Créer une vCard");
         console.log("3. Simulation du passsage d'un test");
         console.log("4. Rechercher des questions")
-        console.log("5. Se déconnecter");
+        console.log("5. Générer un graphique d'examen");
+        console.log("6. Se déconnecter");
 
         // Demander le choix
         let choice = prompt("Votre choix : ");
@@ -71,8 +73,12 @@ let accueil = async (user) => {
                 searchQ.searchQuestions();
                 accueil(user);
                 break;
-
             case "5":
+                await graphique.demanderGenerationGraphique();
+                accueil(user);
+                break;
+
+            case "6":
                 // On se déconnecte
                 console.log("Bye bye".blue);
                 break;
