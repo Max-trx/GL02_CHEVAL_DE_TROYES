@@ -16,7 +16,8 @@ const questions = [];
 async function fileGestion() {
     let choix = "0";
     console.log("Bienvenue dans le gestionnaire de fichier");
-    while (choix != "5") {
+
+    while (choix != "6") {
         console.log("\nVous avez pour l'instant " + questions.length + " questions dans votre examen");
         console.log("Pour générer un examen, vous devez avoir entre 15 et 20 questions");
         console.log("Que voulez-vous faire ?\n");
@@ -24,7 +25,8 @@ async function fileGestion() {
         console.log("2 - Supprimer une question");
         console.log("3 - Afficher vos questions");
         console.log("4 - Générer l'examen");
-        console.log("5 - Quitter le gestionnaire de fichier");
+        console.log("5 - Vider les questions séléctionnées");
+        console.log("6 - Quitter le gestionnaire de fichier");
 
         choix = prompt("Votre choix : ");
         console.log("Vous avez choisi l'option " + choix);
@@ -44,16 +46,19 @@ async function fileGestion() {
             case "4":
                 console.log("Vous avez choisi de générer l'examen");
                 await genererExamen();
-                choix = "5";
+                choix = "6";
                 break;
             case "5":
+                questions.splice(0,questions.length);
+                console.log("Vous n'avez plus de questions séléctionnées.")
+                break;
+            case "6":
                 console.log("Vous avez choisi de quitter le gestionnaire de fichier");
                 break;
             default:
                 console.log("Vous n'avez pas choisi une option valide".red);
                 break;
         }
-        console.log("test");
     }
 }
 
