@@ -38,3 +38,26 @@ ATTENTION : Veillez à bien exécuter les installations npm nécessaires, telles
 * Fantin Schmitt
 * Rémy Kinzelin
 
+# Révision
+
+## Bug
+   * Possibilité de l'arrêt de la simulation de test
+   * Révision d'une boucle infinie lors de la création de VCard
+   * Annulation lors de la création d'un test
+   * Suppresion de mot clé dans la recherche
+   * Fautes d'orthographes 
+   
+## Amélioration
+   * Fonctionnalité des graphes non comprise pour un fichier
+   * Graphes non foncitonnel lors de test avec un unique type de question
+   * Affichage des graphes sans questions
+   * Graphes plus jolis
+   * Plus de sécurité pour le mot de passe
+   * Possibilité d'enseigner plusieurs matières pour les professeur dans leur VCard
+
+## Auteurs de la révision
+
+* Maxime Trarieux
+* Robin Nadal
+* Thomas Chabannes 
+
